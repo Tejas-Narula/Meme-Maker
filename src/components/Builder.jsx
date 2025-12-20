@@ -18,11 +18,9 @@ export default function Builder(props){
 
     props.setTextBoxes(prevTextBoxes=>
       prevTextBoxes.map(textBox=>
-            (textBox.id != id ? textBox : {...textBox, value:value})
-          )
+          (textBox.id != id ? textBox : {...textBox, value:value})
+        )
     )
-    
-    
   }
 
   return(
@@ -31,7 +29,7 @@ export default function Builder(props){
       
       <div className="options">
         <Button text="Add Text Box" func={addTextBox}/>
-        <Button text="Change Image"/>
+        <Button text="Change Image" func={props.GenrateRandomMemeTemplate}/>
       </div>
       
     </div>

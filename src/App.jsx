@@ -1,5 +1,5 @@
 // import { useState } from 'react'
-import React from 'react'
+import React from 'react' 
 import './App.css'
 import Builder from './components/builder'
 
@@ -9,8 +9,28 @@ import Preview from "./components/Preview"
 
 
 function App() {
-  
   const [textBoxes, setTextBoxes] = React.useState([{key: 1, id: 1, value: "I am here", pos: [420,150]},{key: 2, id: 2, value: "Yo", pos: [420,250]}])
+  const [allMemes, setAllMemes] = React.useState([])
+  const [memeTemplate, setMemeTemplate] = React.useState("./meme-templates/image1.png")
+
+  //Fetch all memes and store it
+  React.useEffect(()=>{
+    console.log("Fetching..")
+    fetch('https://api.imgflip.com/get_memes')
+      .then(res=>res.json())
+      .then(data => setAllMemes(data.data.memes))
+  },[])
+
+  function GenrateRandomMemeTemplate(){
+    if (!allMemes.length) return
+
+    console.log("saving meme")
+    setMemeTemplate(allMemes[Math.round(Math.random()*allMemes.length )].url)
+  }
+  
+
+  
+  
 
 
   return(
@@ -18,8 +38,8 @@ function App() {
   
   <Header/>
   <div className="main">
-    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes}/>
-    <Preview textBoxes={textBoxes}/>
+    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate}/>
+    <Preview textBoxes={textBoxes} memeTemplate={memeTemplate}/>
   </div>
   
   
