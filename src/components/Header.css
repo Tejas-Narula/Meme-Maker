@@ -1,0 +1,9 @@
+header{
+  display: flex;
+  justify-content: center;
+  height: 5rem;
+}
+
+header > h1{
+  color: rgb(223, 223, 223);
+}

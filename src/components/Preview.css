@@ -1,0 +1,12 @@
+img{
+  width: 200px;
+}
+
+.meme span {
+  position: absolute;
+}
+
+.meme span p{
+  width: fit-content;
+  margin: 0;
+}
