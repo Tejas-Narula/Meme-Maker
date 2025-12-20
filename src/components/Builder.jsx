@@ -12,9 +12,22 @@ export default function Builder(props){
     })
   }
 
+  function handleChange(event){
+    const value = event.currentTarget.value
+    const id = event.currentTarget.id
+
+    props.setTextBoxes(prevTextBoxes=>
+      prevTextBoxes.map(textBox=>
+            (textBox.id != id ? textBox : {...textBox, value:value})
+          )
+    )
+    
+    
+  }
+
   return(
     <div className='Builder'>
-      <Inputs textBoxes={props.textBoxes}/>
+      <Inputs textBoxes={props.textBoxes} handleChange={handleChange}/>
       
       <div className="options">
         <Button text="Add Text Box" func={addTextBox}/>

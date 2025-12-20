@@ -9,7 +9,7 @@ import Preview from "./components/Preview"
 
 
 function App() {
-
+  
   const [textBoxes, setTextBoxes] = React.useState([{key: 1, id: 1, value: "I am here", pos: [420,150]},{key: 2, id: 2, value: "Yo", pos: [420,250]}])
 
 
