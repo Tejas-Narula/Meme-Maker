@@ -3,12 +3,12 @@ import Button from './Button'
 import React from 'react'
 import Inputs from './Inputs'
 
-export default function Builder(props){
+export default function Builder({setTextBoxes,textBoxes,GenrateRandomMemeTemplate}){
 
   function addTextBox(){
-    props.setTextBoxes((prevTextBoxes) =>{
+    setTextBoxes((prevTextBoxes) =>{
       const id = prevTextBoxes.length+1
-      return [...prevTextBoxes, {value :"", id: id, key: id}]
+      return [...prevTextBoxes, {value :"Example", id: id, key: id, pos:[400,200]}]
     })
   }
 
@@ -16,7 +16,7 @@ export default function Builder(props){
     const value = event.currentTarget.value
     const id = event.currentTarget.id
 
-    props.setTextBoxes(prevTextBoxes=>
+    setTextBoxes(prevTextBoxes=>
       prevTextBoxes.map(textBox=>
           (textBox.id != id ? textBox : {...textBox, value:value})
         )
@@ -25,11 +25,11 @@ export default function Builder(props){
 
   return(
     <div className='Builder'>
-      <Inputs textBoxes={props.textBoxes} handleChange={handleChange}/>
+      <Inputs textBoxes={textBoxes} handleChange={handleChange} setTextBoxes={setTextBoxes}/>
       
       <div className="options">
         <Button text="Add Text Box" func={addTextBox}/>
-        <Button text="Change Image" func={props.GenrateRandomMemeTemplate}/>
+        <Button text="Change Image" func={GenrateRandomMemeTemplate}/>
       </div>
       
     </div>

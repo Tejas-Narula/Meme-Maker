@@ -1,8 +1,8 @@
 import React from 'react'
 import './Preview.css'
-export default function Preview(props){
+export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes}){
 
-  const [selected, setSelected] = React.useState({hold: false, id: ""})
+  const [selected, setSelected] = React.useState({hold: false, id: "", holdPos:{x:0,y:0}})
 
 
   //Mouce Up handler
@@ -20,49 +20,44 @@ export default function Preview(props){
   }
   }, [])
 
+  //mouse move/hold handler
   React.useEffect(() => {
     if (!selected.hold) return
 
-    props.setTextBoxes(prevTextBoxes =>
-      prevTextBoxes.map(textBox => {
-        const left = props.mousePos.x
-        const top = props.mousePos.y
-
-        console.log(left,top)
-
-        return textBox.id !== selected.id
-          ? textBox
-          : { ...textBox, pos: [left, top] }
-      })
+    setTextBoxes(prevTextBoxes =>
+      prevTextBoxes.map(textBox => 
+        textBox.id === selected.id ?
+        {...textBox,
+        pos:{
+          x: mousePos.x - selected.holdPos.x,
+          y: mousePos.y - selected.holdPos.y
+        }
+      }:textBox)
     )
-  }, [props.mousePos])
+  }, [mousePos,selected,setTextBoxes])
 
-
+  // console.log("rendereing")
   return(
     
     <div className="meme">
-      <img src={props.memeTemplate} alt="" />
+      <img src={memeTemplate} alt="" />
       
       {/* Text booxes on preview */}
-      {props.textBoxes.map((textBox)=>{
+      {textBoxes.map((textBox)=>{
         const isSelected = selected.id == textBox.id
         const isheld = isSelected && selected.hold
-
+        
+        
         return(
           <span 
             key={textBox.key} 
-            style={{top:`${textBox.pos[1]}px`, left:`${textBox.pos[0]}px`}} >
+            style={{top:`${textBox.pos.y}px`, left:`${textBox.pos.x}px`}} >
               
               <p onMouseDown={()=>{
-                setSelected({hold:true, id:textBox.id})
+                setSelected(prevSelected=> {return( {...prevSelected,id:textBox.id, hold:true, holdPos:{x:mousePos.x-textBox.pos.x,y:mousePos.y-textBox.pos.y}})})
+                // console.log(textBox, textBox.pos, mousePos)
                 }}
-                
-                // onMouseUp={()=>{
-                //   setSelected({hold:false, id:textBox.id})
-                // }}
-                
                 className={`${isSelected ? "selected-text" : ""} ${isheld ? "held" : ""}`}
-                
               >
                 {textBox.value}
               </p>

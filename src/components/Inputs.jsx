@@ -1,20 +1,34 @@
 import './Inputs.css'
+import trashIcon from '../assets/trash-can.png'
 
-export default function Inputs(props) {
+export default function Inputs({textBoxes,handleChange,setTextBoxes}) {
+  function deleteTextBox(textBoxId){
+    setTextBoxes(prevTextBoxes=>
+      prevTextBoxes.filter(Box=>Box.id!==textBoxId))}
+  
+  
   return (
     <div className="inputs">
-      {props.textBoxes.map((textBox, index) => {
+      {/* All the inputes */}
+      {textBoxes.map((textBox, index) => {
         return (
-        <input 
-          key={textBox.key}
-          id={textBox.id}
-          value={textBox.value}
-          type="text" 
-          placeholder={`Text #${index + 1}`} 
-          onChange={props.handleChange}
-        />
+        <div className="InputElem" key={textBox.key}>
+          <input 
+            
+            id={textBox.id}
+            value={textBox.value}
+            type="text" 
+            placeholder={`Text #${index + 1}`} 
+            onChange={handleChange}
+          />
+
+          <img src={trashIcon} alt="trash" className='trashIcon' onClick={()=>deleteTextBox(textBox.id)}/>
+        </div>
       )
       })}
+
+    
+
     </div>
   )
 }

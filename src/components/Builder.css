@@ -7,14 +7,13 @@
   justify-content: space-between;
   border: 2px solid rgb(221, 221, 221);
   border-radius: 3px;
+  width: 45%;
+  min-width: 250px
 }
 
 .inputs, .options{
   margin: 5px;
 }
 
-.inputs{
-  height: 80%;
-  overflow: auto;
-}
+
 

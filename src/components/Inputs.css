@@ -1,6 +1,30 @@
 .InputElem {
   display: flex;
-  flex-direction: column;
-  flex: 1;
-  max-width: 200px;
+  gap: 0.2rem;
+  margin: 0 0 2px 0;
+  align-items: center;
+}
+
+.inputs{
+  height: 80%;
+  overflow: auto;
+}
+
+input{
+  color: white;
+  background-color: rgb(51, 51, 51);
+  border: none;
+  border-radius: 2px;
+}
+
+
+.trashIcon{
+
+  width: 20px;
+  cursor: pointer;
+}
+
+.trashIcon:hover{
+  content: url('../assets/trash-can-open.png');
+  /* width: 22px; */
 }
