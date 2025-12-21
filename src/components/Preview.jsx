@@ -3,7 +3,7 @@ import './Preview.css'
 export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes}){
 
   const [selected, setSelected] = React.useState({hold: false, id: "", holdPos:{x:0,y:0}})
-
+  // const [memeRectPos, setMemeRectPos] = React.useState({x:null,y:null})
 
   //Mouce Up handler
   React.useEffect(() => {
@@ -36,11 +36,20 @@ export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes}){
     )
   }, [mousePos,selected,setTextBoxes])
 
-  // console.log("rendereing")
+  // const memeRef = React.useRef(null)
+  // // console.log(memeRef)
+  
+  // React.useEffect(()=>{
+  //   if (memeRef != null){
+  //     const memeRect = memeRef.current.getBoundingClientRect()
+  //     setMemeRectPos({x: memeRect.x,y:memeRect.y})
+  //   }
+  // },[memeRef])
+
   return(
     
     <div className="meme">
-      <img src={memeTemplate} alt="" />
+      <img src={memeTemplate} alt=""/>
       
       {/* Text booxes on preview */}
       {textBoxes.map((textBox)=>{

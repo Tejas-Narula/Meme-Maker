@@ -5,3 +5,8 @@
   /* align-items: center; */
   gap: 1rem;
 }
+
+body{
+  display: flex;
+  justify-content: center;
+}
