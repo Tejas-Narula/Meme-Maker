@@ -44,11 +44,13 @@ export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes,in
       {textBoxes.map((textBox)=>{
         const isSelected = selected.id == textBox.id
         const isheld = isSelected && selected.hold
+        const fontSize = Number( textBox.fontSize)
+        console.log(fontSize)
         return(
           <span 
             key={textBox.key} 
             style={{top:`${textBox.pos.y}px`, left:`${textBox.pos.x}px`}} >
-              
+            
               <p 
               onMouseDown={(e)=>{
                 e.stopPropagation()
@@ -60,6 +62,8 @@ export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes,in
                 e.stopPropagation()
                 inputRefs.current[textBox.id].focus();inputRefs.current[textBox.id].select()}}
 
+              style={{fontFamily:textBox.font, fontSize:`${fontSize}px`}}
+              
               className={`${isSelected ? "selected-text" : ""} ${isheld ? "held" : ""}`}
               >
                 {textBox.value}

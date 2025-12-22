@@ -3,14 +3,23 @@ import Button from './Elements/Button'
 import React from 'react'
 import Inputs from './Inputs'
 
-export default function Builder({downloadMeme,setTextBoxes,textBoxes,GenrateRandomMemeTemplate,inputRefs}){
+export default function Builder({allMemes,setMemeTemplate,downloadMeme,setTextBoxes,textBoxes,GenrateRandomMemeTemplate,inputRefs}){
 
-  function addTextBox(value="Text Box", pos={x:400,y:100}){
+  function addTextBox(value="Text Box", pos={x:50,y:100},font="Impact", fontSize="12"){
     setTextBoxes((prevTextBoxes) =>{
       const id = prevTextBoxes.length+1
-      return [...prevTextBoxes, {value, id, key: id, pos}]
+      return [...prevTextBoxes, {value, id, key: id, pos, font,fontSize}]
     })
   }
+
+  React.useEffect(()=>{
+    if(allMemes.length != 0){
+      addTextBox("I created a MeMé maker",{x:9,y:67},"Roboto",8)
+      addTextBox("you mean 'meme' right?",{x:112,y:14},"Roboto",8)
+      addTextBox('MeMé',{x:30,y:107},"Impact",8);
+      addTextBox("ow",{x:164,y:160},"Impact",12);
+      setMemeTemplate(allMemes[12].url);}
+  },[allMemes])
 
   function handleChange(event){
     const value = event.currentTarget.value

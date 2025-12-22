@@ -10,14 +10,14 @@ img{
   cursor: grab;
   position: absolute;
   user-select: none;
-  transform: translateX(-50%);
+  /* transform: translateX(-50%); */
 }
 
 .meme span p{
   display: inline-block;
   /* width: 90px; */
   margin: 0;
-  font-size: 20px;
+  /* font-size: 20px; */
   font-family: Impact;
   color: white;
   /* line-height: 3px; */

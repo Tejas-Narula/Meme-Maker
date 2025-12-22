@@ -11,9 +11,11 @@ import Templates from './components/templates'
 
 
 function App() {
-  const [textBoxes, setTextBoxes] = React.useState([{key: 1, id: 1, value: "I am here", pos: {x:120,y:50}},{key: 2, id: 2, value: "Yo", pos: {x:120,y:120}}])
+  // [{key,id,value,pos:{x,y},font,fontSize}]
+  const [textBoxes, setTextBoxes] = React.useState([])
+
   const [allMemes, setAllMemes] = React.useState([])
-  const [memeTemplate, setMemeTemplate] = React.useState("./meme-templates/image1.png")
+  const [memeTemplate, setMemeTemplate] = React.useState(null)
   const inputRefs = React.useRef({})
   const imgRef = React.useRef(null)
 
@@ -60,7 +62,8 @@ function App() {
     image.crossOrigin = "anonymous"
 
 
-    image.onload = () =>{
+    image.onload = async () =>{
+      await document.fonts.ready
       canvas.width = image.width;
       canvas.height = image.height;
 
@@ -72,27 +75,23 @@ function App() {
 
       ctx.drawImage(image, 0, 0);
 
-      textBoxes.forEach(tb => {
-        const previewTextEl = 
-          document.querySelector(".meme span p")
-
-        const style = getComputedStyle(previewTextEl)
-        const fontSize = parseFloat(style.fontSize)
-        const fontFamily = style.fontFamily
-        const fontWeight = style.fontWeight
+      textBoxes.forEach(textBox => {
+        const fontSize = textBox.fontSize
+        const fontFamily = textBox.font;
+        // const fontWeight = textBox.fontSize
 
         ctx.textBaseline = "top"
-        ctx.font = `${fontWeight} ${fontSize * scaleY}px ${fontFamily}`
+        ctx.font = `400 ${fontSize * scaleY}px ${fontFamily}`
         ctx.fillStyle = "white"
         ctx.strokeStyle = "black"
         ctx.lineWidth = 3
-        ctx.textAlign = "center"
+        // ctx.textAlign = "center" problematic af dont do
 
-        const x = tb.pos.x * scaleX
-        const y = tb.pos.y * scaleY
+        const x = textBox.pos.x * scaleX
+        const y = textBox.pos.y * scaleY
 
-        ctx.strokeText(tb.value,x,y)
-        ctx.fillText(tb.value,x,y)
+        ctx.strokeText(textBox.value,x,y)
+        ctx.fillText(textBox.value,x,y)
       });
 
       const link = document.createElement("a")
@@ -111,7 +110,7 @@ function App() {
   
   <Header/>
   <div className="main">
-    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs} downloadMeme={downloadMeme}/>
+    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs} downloadMeme={downloadMeme} setMemeTemplate={setMemeTemplate} allMemes={allMemes}/>
     <Preview textBoxes={textBoxes} memeTemplate={memeTemplate} mousePos={mousePos} setTextBoxes={setTextBoxes} inputRefs={inputRefs} imgRef={imgRef}/>
   </div>
 
