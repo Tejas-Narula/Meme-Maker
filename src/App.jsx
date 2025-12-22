@@ -14,9 +14,9 @@ function App() {
   const [textBoxes, setTextBoxes] = React.useState([{key: 1, id: 1, value: "I am here", pos: {x:120,y:50}},{key: 2, id: 2, value: "Yo", pos: {x:120,y:120}}])
   const [allMemes, setAllMemes] = React.useState([])
   const [memeTemplate, setMemeTemplate] = React.useState("./meme-templates/image1.png")
+  const inputRefs = React.useRef({})
+  const imgRef = React.useRef(null)
 
-
-  
 
   //Fetch all memes and store it
   React.useEffect(()=>{
@@ -26,6 +26,7 @@ function App() {
       .then(data => setAllMemes(data.data.memes))
   },[])
 
+  //Genrate random meme template
   function GenrateRandomMemeTemplate(){
     if (!allMemes.length) return
 
@@ -35,9 +36,7 @@ function App() {
 
 
   //get mouse pos
-
   const [mousePos, setMousePos] = React.useState({x:0,y:0})
-
   React.useEffect(() => {
     function updateMousePosition(event){
       setMousePos({x: event.clientX, y:event.clientY})
@@ -51,7 +50,59 @@ function App() {
   }, [])
   
 
-  const inputRefs = React.useRef({})
+  //Download/Save completed Meme
+
+  function downloadMeme(textBoxes,templateUrl=memeTemplate){
+    const canvas = document.createElement("canvas")
+    const ctx = canvas.getContext('2d');
+
+    const image = new Image();
+    image.crossOrigin = "anonymous"
+
+
+    image.onload = () =>{
+      canvas.width = image.width;
+      canvas.height = image.height;
+
+      const previewImg = imgRef.current
+
+      const scaleX = image.width / previewImg.clientWidth
+      const scaleY = image.height / previewImg.clientHeight
+
+
+      ctx.drawImage(image, 0, 0);
+
+      textBoxes.forEach(tb => {
+        const previewTextEl = 
+          document.querySelector(".meme span p")
+
+        const style = getComputedStyle(previewTextEl)
+        const fontSize = parseFloat(style.fontSize)
+        const fontFamily = style.fontFamily
+        const fontWeight = style.fontWeight
+
+        ctx.textBaseline = "top"
+        ctx.font = `${fontWeight} ${fontSize * scaleY}px ${fontFamily}`
+        ctx.fillStyle = "white"
+        ctx.strokeStyle = "black"
+        ctx.lineWidth = 3
+        ctx.textAlign = "center"
+
+        const x = tb.pos.x * scaleX
+        const y = tb.pos.y * scaleY
+
+        ctx.strokeText(tb.value,x,y)
+        ctx.fillText(tb.value,x,y)
+      });
+
+      const link = document.createElement("a")
+      link.download = "MeMé Maker - Meme.png"
+      link.href = canvas.toDataURL("image/png")
+      link.click()
+    }
+
+    image.src = templateUrl
+  }
   
 
 
@@ -60,14 +111,11 @@ function App() {
   
   <Header/>
   <div className="main">
-    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs}/>
-    <Preview textBoxes={textBoxes} memeTemplate={memeTemplate} mousePos={mousePos} setTextBoxes={setTextBoxes} inputRefs={inputRefs}/>
+    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs} downloadMeme={downloadMeme}/>
+    <Preview textBoxes={textBoxes} memeTemplate={memeTemplate} mousePos={mousePos} setTextBoxes={setTextBoxes} inputRefs={inputRefs} imgRef={imgRef}/>
   </div>
 
   <Templates allMemes={allMemes} setMemeTemplate={setMemeTemplate}/> 
-
-  
-  
 
   </>
   )

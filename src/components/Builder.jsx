@@ -3,7 +3,7 @@ import Button from './Elements/Button'
 import React from 'react'
 import Inputs from './Inputs'
 
-export default function Builder({setTextBoxes,textBoxes,GenrateRandomMemeTemplate,inputRefs}){
+export default function Builder({downloadMeme,setTextBoxes,textBoxes,GenrateRandomMemeTemplate,inputRefs}){
 
   function addTextBox(value="Text Box", pos={x:400,y:100}){
     setTextBoxes((prevTextBoxes) =>{
@@ -30,7 +30,7 @@ export default function Builder({setTextBoxes,textBoxes,GenrateRandomMemeTemplat
       <div className="options">
         <Button text="Add Text" func={()=>addTextBox()}/>
         <Button text="Random Meme" func={GenrateRandomMemeTemplate}/>
-        <Button text="Save" func={GenrateRandomMemeTemplate}/>
+        <Button text="Save" func={()=>downloadMeme(textBoxes)}/>
       </div>
       
     </div>

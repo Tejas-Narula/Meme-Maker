@@ -1,9 +1,8 @@
 import React from 'react'
 import './Preview.css'
-export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes,inputRefs}){
+export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes,inputRefs,imgRef}){
 
   const [selected, setSelected] = React.useState({hold: false, id: "", holdPos:{x:0,y:0}})
-  // const [memeRectPos, setMemeRectPos] = React.useState({x:null,y:null})
 
   //Mouce Up handler
   React.useEffect(() => {
@@ -36,29 +35,15 @@ export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes,in
     )
   }, [mousePos,selected,setTextBoxes])
 
-  // React.useEffect(()=>{
-  //   function handleMouseDown(){
-  //     setSelected({hold: false, id: "", holdPos:{x:0,y:0}})
-  //   }
-
-  //   window.addEventListener('mousedown',handleMouseDown)
-
-  //   return()=>{
-  //     window.removeEventListener('mousedown',handleMouseDown)
-  //   }
-  // },[])
-
   return(
     
     <div className="meme" onMouseDown={()=>setSelected({hold: false, id: "", holdPos:{x:0,y:0}})}>
-      <img src={memeTemplate} alt=""/>
+      <img src={memeTemplate} alt="" ref={imgRef}/>
       
       {/* Text booxes on preview */}
       {textBoxes.map((textBox)=>{
         const isSelected = selected.id == textBox.id
         const isheld = isSelected && selected.hold
-        
-        
         return(
           <span 
             key={textBox.key} 
