@@ -1,5 +1,6 @@
 .Builder{
-  height: 200px;
+  /* height: max(300px,45vh); */
+  height: 1005;
   max-height: 70vh;
   background-color: rgb(25, 25, 25);
   display: flex;
@@ -9,7 +10,7 @@
   border-left: 4px solid rgb(10, 10, 10);
   border-top: 4px solid rgb(10, 10, 10);
   /* border-radius: 2px; */
-  width: 55%;
+  width: clamp(200px,50%,700px);
   min-width: 250px
 }
 

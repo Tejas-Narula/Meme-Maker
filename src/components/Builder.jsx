@@ -14,10 +14,10 @@ export default function Builder({allMemes,setMemeTemplate,downloadMeme,setTextBo
 
   React.useEffect(()=>{
     if(allMemes.length != 0){
-      addTextBox("I created a MeMé maker",{x:9,y:67},"Roboto",8)
-      addTextBox("you mean 'meme' right?",{x:112,y:14},"Roboto",8)
-      addTextBox('MeMé',{x:30,y:107},"Impact",8);
-      addTextBox("ow",{x:164,y:160},"Impact",12);
+      addTextBox("I created a MeMé maker",{x:16,y:27},"Impact",14)
+      addTextBox("you mean 'meme' right?",{x:182,y:14},"Impact",14)
+      addTextBox('MeMé',{x:60,y:180},"Impact",24);
+      addTextBox("ow",{x:284,y:300},"Impact",12);
       setMemeTemplate(allMemes[12].url);}
   },[allMemes])
 

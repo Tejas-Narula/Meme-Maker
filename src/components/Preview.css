@@ -1,9 +1,9 @@
-img{
-  width: 200px;
-}
-
 .meme{
   position: relative;
+}
+
+.meme img{
+  width:clamp(150px,45vw,410px);
 }
 
 .meme span {
