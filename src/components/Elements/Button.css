@@ -1,0 +1,21 @@
+.buttonElem{
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.2rem;
+  margin: 0.3rem 0.1rem;
+  cursor: pointer;
+  color: white;
+  background-color: #121212;
+  box-shadow: 0px 0.3rem 0 rgb(10, 10, 10);
+
+  transition: 0.15s;
+}
+
+.buttonElem:hover{
+  background-color: rgba(12, 12, 12, 0.999);
+}
+
+button:active{
+  transform: translateY(0.3rem);
+  box-shadow: none;
+}

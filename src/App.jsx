@@ -1,4 +1,5 @@
 // import { useState } from 'react'
+import Antigravity from './components/bits/Antigravity';
 import React from 'react' 
 import './App.css'
 import Builder from './components/builder'
@@ -50,7 +51,7 @@ function App() {
   }, [])
   
 
-  
+  const inputRefs = React.useRef({})
   
 
 
@@ -59,12 +60,13 @@ function App() {
   
   <Header/>
   <div className="main">
-    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate}/>
-    <Preview textBoxes={textBoxes} memeTemplate={memeTemplate} mousePos={mousePos} setTextBoxes={setTextBoxes}/>
+    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs}/>
+    <Preview textBoxes={textBoxes} memeTemplate={memeTemplate} mousePos={mousePos} setTextBoxes={setTextBoxes} inputRefs={inputRefs}/>
   </div>
 
   <Templates allMemes={allMemes} setMemeTemplate={setMemeTemplate}/> 
 
+  
   
 
   </>

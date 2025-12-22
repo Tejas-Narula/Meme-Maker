@@ -1,6 +1,6 @@
 import React from 'react'
 import './Preview.css'
-export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes}){
+export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes,inputRefs}){
 
   const [selected, setSelected] = React.useState({hold: false, id: "", holdPos:{x:0,y:0}})
   // const [memeRectPos, setMemeRectPos] = React.useState({x:null,y:null})
@@ -36,19 +36,21 @@ export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes}){
     )
   }, [mousePos,selected,setTextBoxes])
 
-  // const memeRef = React.useRef(null)
-  // // console.log(memeRef)
-  
   // React.useEffect(()=>{
-  //   if (memeRef != null){
-  //     const memeRect = memeRef.current.getBoundingClientRect()
-  //     setMemeRectPos({x: memeRect.x,y:memeRect.y})
+  //   function handleMouseDown(){
+  //     setSelected({hold: false, id: "", holdPos:{x:0,y:0}})
   //   }
-  // },[memeRef])
+
+  //   window.addEventListener('mousedown',handleMouseDown)
+
+  //   return()=>{
+  //     window.removeEventListener('mousedown',handleMouseDown)
+  //   }
+  // },[])
 
   return(
     
-    <div className="meme">
+    <div className="meme" onMouseDown={()=>setSelected({hold: false, id: "", holdPos:{x:0,y:0}})}>
       <img src={memeTemplate} alt=""/>
       
       {/* Text booxes on preview */}
@@ -62,11 +64,18 @@ export default function Preview({textBoxes,memeTemplate,mousePos,setTextBoxes}){
             key={textBox.key} 
             style={{top:`${textBox.pos.y}px`, left:`${textBox.pos.x}px`}} >
               
-              <p onMouseDown={()=>{
+              <p 
+              onMouseDown={(e)=>{
+                e.stopPropagation()
                 setSelected(prevSelected=> {return( {...prevSelected,id:textBox.id, hold:true, holdPos:{x:mousePos.x-textBox.pos.x,y:mousePos.y-textBox.pos.y}})})
                 // console.log(textBox, textBox.pos, mousePos)
                 }}
-                className={`${isSelected ? "selected-text" : ""} ${isheld ? "held" : ""}`}
+              
+              onDoubleClick={(e)=>{
+                e.stopPropagation()
+                inputRefs.current[textBox.id].focus();inputRefs.current[textBox.id].select()}}
+
+              className={`${isSelected ? "selected-text" : ""} ${isheld ? "held" : ""}`}
               >
                 {textBox.value}
               </p>

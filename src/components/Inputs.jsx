@@ -1,7 +1,7 @@
 import './Inputs.css'
 import trashIcon from '../assets/trash-can.png'
 
-export default function Inputs({textBoxes,handleChange,setTextBoxes}) {
+export default function Inputs({textBoxes,handleChange,setTextBoxes,inputRefs}) {
   function deleteTextBox(textBoxId){
     setTextBoxes(prevTextBoxes=>
       prevTextBoxes.filter(Box=>Box.id!==textBoxId))}
@@ -12,9 +12,9 @@ export default function Inputs({textBoxes,handleChange,setTextBoxes}) {
       {/* All the inputes */}
       {textBoxes.map((textBox, index) => {
         return (
-        <div className="InputElem" key={textBox.key}>
+        <div className="InputElem" key={textBox.id}>
           <input 
-            
+            ref={el=>(inputRefs.current[textBox.id]=el)}
             id={textBox.id}
             value={textBox.value}
             type="text" 
@@ -22,6 +22,7 @@ export default function Inputs({textBoxes,handleChange,setTextBoxes}) {
             onChange={handleChange}
           />
 
+          {/* trash icon */}
           <img src={trashIcon} alt="trash" className='trashIcon' onClick={()=>deleteTextBox(textBox.id)}/>
         </div>
       )

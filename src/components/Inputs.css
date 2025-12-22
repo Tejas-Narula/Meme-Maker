@@ -1,3 +1,22 @@
+input{
+  background: #121212;
+  border: 1px solid #2e2e2e;
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: #ffffff;
+  font-size: 12px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder{
+  color: #777;
+}
+input:focus{
+  border-color: #071837;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.249);
+}
+
 .InputElem {
   display: flex;
   gap: 0.2rem;
@@ -8,14 +27,13 @@
 .inputs{
   height: 80%;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.3rem;
 }
 
-input{
-  color: white;
-  background-color: rgb(51, 51, 51);
-  border: none;
-  border-radius: 2px;
-}
+
 
 
 .trashIcon{

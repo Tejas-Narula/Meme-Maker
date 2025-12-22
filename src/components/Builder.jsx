@@ -3,7 +3,7 @@ import Button from './Elements/Button'
 import React from 'react'
 import Inputs from './Inputs'
 
-export default function Builder({setTextBoxes,textBoxes,GenrateRandomMemeTemplate}){
+export default function Builder({setTextBoxes,textBoxes,GenrateRandomMemeTemplate,inputRefs}){
 
   function addTextBox(value="Text Box", pos={x:400,y:100}){
     setTextBoxes((prevTextBoxes) =>{
@@ -11,12 +11,6 @@ export default function Builder({setTextBoxes,textBoxes,GenrateRandomMemeTemplat
       return [...prevTextBoxes, {value, id, key: id, pos}]
     })
   }
-
-  // React.useEffect(()=>{
-  //   addTextBox("yo",{x:400,y:250})
-  //   addTextBox()
-    
-  // },[])
 
   function handleChange(event){
     const value = event.currentTarget.value
@@ -31,11 +25,12 @@ export default function Builder({setTextBoxes,textBoxes,GenrateRandomMemeTemplat
 
   return(
     <div className='Builder'>
-      <Inputs textBoxes={textBoxes} handleChange={handleChange} setTextBoxes={setTextBoxes}/>
+      <Inputs textBoxes={textBoxes} handleChange={handleChange} setTextBoxes={setTextBoxes} inputRefs={inputRefs}/>
       
       <div className="options">
-        <Button text="Add Text Box" func={()=>addTextBox()}/>
-        <Button text="Change Image" func={GenrateRandomMemeTemplate}/>
+        <Button text="Add Text" func={()=>addTextBox()}/>
+        <Button text="Random Meme" func={GenrateRandomMemeTemplate}/>
+        <Button text="Save" func={GenrateRandomMemeTemplate}/>
       </div>
       
     </div>

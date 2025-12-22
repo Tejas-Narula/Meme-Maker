@@ -12,7 +12,7 @@ export default function Templates({allMemes,setMemeTemplate}){
       <div className="memes" 
         onWheel={e=>e.currentTarget.scrollLeft += e.deltaY}
       >
-        {allMemes.map((meme)=>{return(<img src={meme.url} alt='meme' onClick={()=>setMemeTemplate(meme.url)}></img>)})}
+        {allMemes.map((meme)=>{return(<img key={meme.id} src={meme.url} alt='meme' onClick={()=>setMemeTemplate(meme.url)}></img>)})}
       </div>
     </div>
   )
