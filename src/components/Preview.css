@@ -1,6 +1,8 @@
 .meme{
   position: relative;
   min-height: 200px;
+  width:clamp(150px,45vw,410px);
+  
 }
 
 .meme img{

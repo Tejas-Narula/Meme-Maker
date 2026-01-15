@@ -26,7 +26,7 @@ function App() {
 
   //Fetch all memes and store it
   React.useEffect(()=>{
-    console.log("Fetching..")
+    // console.log("Fetching..")
     fetch('https://api.imgflip.com/get_memes')
       .then(res=>res.json())
       .then(data => setAllMemes(data.data.memes))
@@ -36,7 +36,7 @@ function App() {
   function GenrateRandomMemeTemplate(){
     if (!allMemes.length) return
 
-    console.log("saving meme")
+    // console.log("saving meme")
     setMemeTemplate(allMemes[Math.round(Math.random()*allMemes.length )].url)
   }
 
@@ -93,7 +93,7 @@ async function createMemeImage(textBoxes, templateUrl) {
     ctx.strokeText(textBox.value, x, y)
     ctx.fillText(textBox.value, x, y)
 
-    console.log(textBox, fontSizePx)
+    // console.log(textBox, fontSizePx)
   }) 
 
   return canvas

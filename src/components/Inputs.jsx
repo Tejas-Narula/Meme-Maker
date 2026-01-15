@@ -23,7 +23,7 @@ export default function Inputs({textBoxes,handleChange,setTextBoxes,inputRefs, i
 
   // Change Font Size
   function changeFontSize(event,id){
-    console.log(id)
+    // console.log(id)
     const fontSize = event.target.value
 
     setTextBoxes(prevTextBoxes=>

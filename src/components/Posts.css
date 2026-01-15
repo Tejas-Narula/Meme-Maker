@@ -4,15 +4,35 @@
   background-color:  rgb(25, 25, 25);
 }
 
-.memesGrid{
+.memesGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* height: 200px; */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 2fr));
+  gap: 1rem;
+  padding: 1rem;
 }
 
-.memesGrid img{
-  width: 300px;
+.memeCard {
+  cursor: pointer;
+  background-color: rgb(40, 40, 40); /* card background */
+  padding: 0.75rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: transform 0.15s ease-in-out;
 }
+
+.memeCard:hover{
+  transform: scale(1.03);
+}
+
+.memeCard img {
+  width: 100%;
+  height: auto;
+  /* border-radius: 6px; */
+}
+
 
 .Posts h3{
   color: white;

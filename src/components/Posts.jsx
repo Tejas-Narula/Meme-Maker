@@ -10,12 +10,11 @@ import { db } from "../firebaseConfig";
 
 import "./Posts.css";
 
-export default function Posts({ createMemeImage }) {
+export default function Posts({ createMemeImage}) {
   const [memesData, setMemesData] = useState([]);
   const [memesImgSrc,setMemesImgSrc] = useState([]);
 
-  useEffect(() => {
-    async function fetchMemes() {
+  async function fetchMemes() {
       try {
         const q = query(
           collection(db, "test"),
@@ -36,7 +35,16 @@ export default function Posts({ createMemeImage }) {
       }
     }
 
-    fetchMemes();
+  useEffect(() => {
+
+    function runthis(){
+      fetchMemes();
+    }
+
+    runthis();
+    
+
+    
   }, []);
 
   useEffect(() => {
@@ -68,8 +76,9 @@ export default function Posts({ createMemeImage }) {
 
       <div className="memesGrid">
         {memesImgSrc.map(memeSrc => (
-          <div className="memeCard">
+          <div className="memeCard" key={memeSrc}>
             <img
+              
               src={memeSrc}
               alt="Meme"
             />

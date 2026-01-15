@@ -1,6 +1,7 @@
 // src/components/AddMeme.jsx
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import Button from "./Elements/Button";
 
 export default function ShareMeme({memedata}) {
 
@@ -17,8 +18,6 @@ export default function ShareMeme({memedata}) {
   };
 
   return (
-    <button onClick={addMeme}>
-      Share Meme
-    </button>
+    <Button text="Share Meme" func={addMeme} marginB="1rem"/>
   );
 }

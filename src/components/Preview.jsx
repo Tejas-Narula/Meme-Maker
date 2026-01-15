@@ -47,11 +47,11 @@ export default function Preview({setImageReady,textBoxes,memeTemplate,mousePos,s
     )
   }, [mousePos,selected,setTextBoxes])
 
-
-
   return(
+    memeTemplate !== null ?
     
-    <div className="meme" onMouseDown={()=>setSelected({hold: false, id: "", holdPos:{x:0,y:0}})}>
+    (<div className="meme" onMouseDown={()=>setSelected({hold: false, id: "", holdPos:{x:0,y:0}})}>
+      {/* Meme Template */}
       <img
         ref={imgRef}
         src={memeTemplate}
@@ -64,8 +64,6 @@ export default function Preview({setImageReady,textBoxes,memeTemplate,mousePos,s
         }}
       />
 
-
-      
       {/* Text booxes on preview */}
       {textBoxes.map((textBox)=>{
         const isSelected = selected.id == textBox.id
@@ -120,7 +118,11 @@ export default function Preview({setImageReady,textBoxes,memeTemplate,mousePos,s
               </p>
           </span>)
       })}
-    </div>
+
+    </div>)
+
+    : (<div className='meme' style={{display:"flex", justifyContent:"center", alignItems:"center"}}><p style={{color:"#27292b", fontStyle: "italic", fontSize:"0.8rem", userSelect:"none"}}>Select a Meme Template</p></div>)
+
     
   )
 }
