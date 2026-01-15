@@ -6,3 +6,9 @@
 body{
   background-color: rgb(19, 19, 19);
 }
+
+#root{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

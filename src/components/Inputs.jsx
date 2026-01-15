@@ -3,12 +3,14 @@ import trashIcon from '../assets/trash-can.png'
 import FontPicker from './Elements/FontPicker'
 import FontSizePicker from './Elements/FontSizePicker'
 
-export default function Inputs({textBoxes,handleChange,setTextBoxes,inputRefs}) {
+export default function Inputs({textBoxes,handleChange,setTextBoxes,inputRefs, imgRef}) {
+  // delete TextBox
   function deleteTextBox(textBoxId){
     setTextBoxes(prevTextBoxes=>
       prevTextBoxes.filter(Box=>Box.id!==textBoxId))
   }
 
+  //Change Font
   function changeFont(event,id){
     const font = event.target.value
 
@@ -19,13 +21,14 @@ export default function Inputs({textBoxes,handleChange,setTextBoxes,inputRefs}) 
     )
   }
 
+  // Change Font Size
   function changeFontSize(event,id){
     console.log(id)
     const fontSize = event.target.value
 
     setTextBoxes(prevTextBoxes=>
       prevTextBoxes.map(textBox=>{
-          return (textBox.id != id ? textBox : {...textBox, fontSize:fontSize})
+          return (textBox.id != id ? textBox : {...textBox, fontSizeP:fontSize/imgRef.current.clientHeight})
   })
     )
   }

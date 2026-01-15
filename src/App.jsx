@@ -7,6 +7,8 @@ import Builder from './components/builder'
 import Header from "./components/Header"
 import Preview from "./components/Preview"
 import Templates from './components/templates'
+import Posts from './components/Posts';
+import ShareMeme from './components/ShareMemeButton';
 
 
 
@@ -18,6 +20,8 @@ function App() {
   const [memeTemplate, setMemeTemplate] = React.useState(null)
   const inputRefs = React.useRef({})
   const imgRef = React.useRef(null)
+  const [imageReady, setImageReady] = React.useState(false)
+
 
 
   //Fetch all memes and store it
@@ -53,8 +57,52 @@ function App() {
   
 
   //Download/Save completed Meme
+  
+//create image canvas
+async function createMemeImage(textBoxes, templateUrl) {
+  const canvas = document.createElement("canvas")
+  const ctx = canvas.getContext("2d")
 
-  function downloadMeme(textBoxes,templateUrl=memeTemplate){
+  const image = new Image()
+  image.crossOrigin = "anonymous"
+  image.src = templateUrl
+
+  await new Promise(resolve => (image.onload = resolve))
+  await document.fonts.ready
+
+  canvas.width = image.width
+  canvas.height = image.height
+
+  ctx.drawImage(image, 0, 0)
+
+  textBoxes.forEach(textBox => {
+    
+    // ✅ percent → absolute
+    const x = textBox.posP.x * canvas.width
+    const y = textBox.posP.y * canvas.height
+
+    // ✅ font size scales with image height
+    const fontSizePx = textBox.fontSizeP * canvas.height
+
+    ctx.textBaseline = "top"
+    ctx.font = `400 ${fontSizePx}px ${textBox.font}`
+    ctx.fillStyle = "white"
+    ctx.strokeStyle = "black"
+    ctx.lineWidth = Math.max(2, fontSizePx * 0.08) // optional but recommended
+
+    ctx.strokeText(textBox.value, x, y)
+    ctx.fillText(textBox.value, x, y)
+
+    console.log(textBox, fontSizePx)
+  }) 
+
+  return canvas
+}
+
+
+
+
+function downloadMeme(textBoxes,templateUrl=memeTemplate){
     const canvas = document.createElement("canvas")
     const ctx = canvas.getContext('2d');
 
@@ -67,28 +115,30 @@ function App() {
       canvas.width = image.width;
       canvas.height = image.height;
 
-      const previewImg = imgRef.current
+      // const previewImg = imgRef.current
 
-      const scaleX = image.width / previewImg.clientWidth
-      const scaleY = image.height / previewImg.clientHeight
+      // const scaleX = image.width / previewImg.clientWidth
+      // const scaleY = image.height / previewImg.clientHeight
 
 
       ctx.drawImage(image, 0, 0);
 
       textBoxes.forEach(textBox => {
-        const fontSize = textBox.fontSize
-        const fontFamily = textBox.font;
+        // const fontSize = textBox.fontSize
+        // const fontFamily = textBox.font;
         // const fontWeight = textBox.fontSize
 
+        const fontSizePx = textBox.fontSizeP * canvas.height;
+
         ctx.textBaseline = "top"
-        ctx.font = `400 ${fontSize * scaleY}px ${fontFamily}`
+        ctx.font = `400 ${fontSizePx}px ${textBox.font}`;
         ctx.fillStyle = "white"
         ctx.strokeStyle = "black"
         ctx.lineWidth = 3
         // ctx.textAlign = "center" problematic af dont do
 
-        const x = textBox.pos.x * scaleX
-        const y = textBox.pos.y * scaleY
+        const x = textBox.posP.x * canvas.width;
+        const y = textBox.posP.y * canvas.height;
 
         ctx.strokeText(textBox.value,x,y)
         ctx.fillText(textBox.value,x,y)
@@ -102,6 +152,8 @@ function App() {
 
     image.src = templateUrl
   }
+
+
   
 
 
@@ -110,12 +162,15 @@ function App() {
   
   <Header/>
   <div className="main">
-    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs} downloadMeme={downloadMeme} setMemeTemplate={setMemeTemplate} allMemes={allMemes}/>
-    <Preview textBoxes={textBoxes} memeTemplate={memeTemplate} mousePos={mousePos} setTextBoxes={setTextBoxes} inputRefs={inputRefs} imgRef={imgRef}/>
+    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs} downloadMeme={downloadMeme} setMemeTemplate={setMemeTemplate} allMemes={allMemes} imgRef={imgRef} imageReady={imageReady}/>
+    <Preview textBoxes={textBoxes} memeTemplate={memeTemplate} mousePos={mousePos} setTextBoxes={setTextBoxes} inputRefs={inputRefs} imgRef={imgRef} imageReady={imageReady} setImageReady={setImageReady}/>
   </div>
 
   <Templates allMemes={allMemes} setMemeTemplate={setMemeTemplate}/> 
 
+  <ShareMeme memedata={ { memeTemplate,textBoxes} }/>
+  
+  <Posts createMemeImage={createMemeImage}/>
   </>
   )
 }

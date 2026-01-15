@@ -1,9 +1,11 @@
 .meme{
   position: relative;
+  min-height: 200px;
 }
 
 .meme img{
   width:clamp(150px,45vw,410px);
+  height: 100%;
 }
 
 .meme span {
