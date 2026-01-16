@@ -1,6 +1,8 @@
-// import { useState } from 'react'
 import Antigravity from './components/bits/Antigravity';
-import React from 'react' 
+import React, { useEffect } from 'react'
+import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebaseConfig";
+
 import './App.css'
 import Builder from './components/builder'
 
@@ -23,6 +25,20 @@ function App() {
   const [imageReady, setImageReady] = React.useState(false)
 
 
+  //Sign In
+
+  useEffect(()=>{
+    const unsub = onAuthStateChanged(auth, async(user)=>{
+      if (!user){
+        await signInAnonymously(auth)
+        
+      }
+    });
+
+     
+
+    return ()=>unsub(); 
+  }, []);
 
   //Fetch all memes and store it
   React.useEffect(()=>{
@@ -39,6 +55,8 @@ function App() {
     // console.log("saving meme")
     setMemeTemplate(allMemes[Math.round(Math.random()*allMemes.length )].url)
   }
+
+  
 
 
   //get mouse pos

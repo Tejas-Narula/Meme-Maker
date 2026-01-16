@@ -61,7 +61,7 @@ export default function Posts({ createMemeImage}) {
         );
 
         const imgSrc = canvas.toDataURL("image/png");
-        memeImagesSrc.push(imgSrc)
+        memeImagesSrc.push({imgSrc, id: crypto.randomUUID()})
 
       }
       setMemesImgSrc(memeImagesSrc)
@@ -76,10 +76,10 @@ export default function Posts({ createMemeImage}) {
 
       <div className="memesGrid">
         {memesImgSrc.map(memeSrc => (
-          <div className="memeCard" key={memeSrc}>
+          <div className="memeCard" key={memeSrc.id}>
             <img
               
-              src={memeSrc}
+              src={memeSrc.imgSrc}
               alt="Meme"
             />
           </div>
