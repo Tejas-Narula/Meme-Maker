@@ -1,4 +1,4 @@
-import './Builder.css'
+import './css/Builder.css'
 import Button from './Elements/Button'
 import React from 'react'
 import Inputs from './Inputs'

@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-import "./Posts.css";
+import "./css/Posts.css";
 
 export default function Posts({ createMemeImage}) {
   const [memesData, setMemesData] = useState([]);

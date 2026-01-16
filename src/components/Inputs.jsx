@@ -1,4 +1,4 @@
-import './Inputs.css'
+import './css/Inputs.css'
 import trashIcon from '../assets/trash-can.png'
 import FontPicker from './Elements/FontPicker'
 import FontSizePicker from './Elements/FontSizePicker'

@@ -1,5 +1,5 @@
 import React from 'react'
-import './Preview.css'
+import './css/Preview.css'
 export default function Preview({setImageReady,textBoxes,memeTemplate,mousePos,setTextBoxes,inputRefs,imgRef}){
 
   const [selected, setSelected] = React.useState({hold: false, id: "", holdPos:{x:0,y:0}})

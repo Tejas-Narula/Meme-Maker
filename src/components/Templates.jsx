@@ -1,5 +1,5 @@
 import React from 'react'
-import './Templates.css'
+import './css/Templates.css'
 
 export default function Templates({allMemes,setMemeTemplate}){
   React.useRef(null)
