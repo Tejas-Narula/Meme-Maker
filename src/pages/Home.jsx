@@ -1,20 +1,20 @@
-import Antigravity from './components/bits/Antigravity';
+import Antigravity from '../components/bits/Antigravity';
 import React, { useEffect } from 'react'
 import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebaseConfig";
+import { auth } from "../firebaseConfig";
 
-import './App.css'
-import Builder from './components/builder'
+import './css/Home.css'
+import Builder from '../components/builder'
 
-import Header from "./components/Header"
-import Preview from "./components/Preview"
-import Templates from './components/templates'
-import Posts from './components/Posts';
-import ShareMeme from './components/ShareMemeButton';
+import Header from "../components/Header"
+import Preview from "../components/Preview"
+import Templates from '../components/templates'
+import Posts from '../components/Posts';
+import ShareMeme from '../components/ShareMemeButton';
 
 
 
-function App() {
+export default function Home() {
   // [{key,id,value,pos:{x,y},font,fontSize}]
   const [textBoxes, setTextBoxes] = React.useState([])
 
@@ -192,5 +192,3 @@ function downloadMeme(textBoxes,templateUrl=memeTemplate){
   </>
   )
 }
-
-export default App
