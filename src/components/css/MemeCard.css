@@ -35,9 +35,20 @@
 }
 
 .info {
+  font-size: 20px;
+}
+
+.info > p{
+  font-size: 8px;
+  color: grey;
+  font-style: italic;
+}
+
+.post-info{
+  color: white;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  font-size: 20px;
 }
 
 .likes-container{
@@ -50,6 +61,6 @@
 }
 
 .memeCard > .info > p{
-  color: white;
+  /* color: white; */
   padding-left: 5px;
 }

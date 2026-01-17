@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 import { signInAnonymously, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig";
 
+import { createMemeImage,fetchMemes } from '../functions';
+
 import './css/Home.css'
 import Builder from '../components/builder'
 
@@ -22,6 +24,24 @@ export default function Home() {
   const inputRefs = React.useRef({})
   const imgRef = React.useRef(null)
   const [imageReady, setImageReady] = React.useState(false)
+
+  const [memesData, setMemesData] = React.useState([]);
+
+  //get memes from db
+  useEffect(() => {
+    fetchMemes((snapshot)=>{
+      setMemesData(
+      snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }))
+    );
+    });
+
+    
+  }, []);
+
+
 
   //Sign In
 
@@ -75,45 +95,7 @@ export default function Home() {
   //Download/Save completed Meme
   
 //create image canvas
-async function createMemeImage(textBoxes, templateUrl) {
-  const canvas = document.createElement("canvas")
-  const ctx = canvas.getContext("2d")
 
-  const image = new Image()
-  image.crossOrigin = "anonymous"
-  image.src = templateUrl
-
-  await new Promise(resolve => (image.onload = resolve))
-  await document.fonts.ready
-
-  canvas.width = image.width
-  canvas.height = image.height
-
-  ctx.drawImage(image, 0, 0)
-
-  textBoxes.forEach(textBox => {
-    
-    //  percent → absolute
-    const x = textBox.posP.x * canvas.width
-    const y = textBox.posP.y * canvas.height
-
-    //  font size scales with image height
-    const fontSizePx = textBox.fontSizeP * canvas.height
-
-    ctx.textBaseline = "top"
-    ctx.font = `400 ${fontSizePx}px ${textBox.font}`
-    ctx.fillStyle = "white"
-    ctx.strokeStyle = "black"
-    ctx.lineWidth = Math.max(2, fontSizePx * 0.08) // optional but recommended
-
-    ctx.strokeText(textBox.value, x, y)
-    ctx.fillText(textBox.value, x, y)
-
-    // console.log(textBox, fontSizePx)
-  }) 
-
-  return canvas
-}
 
 
 
@@ -184,7 +166,7 @@ function downloadMeme(textBoxes,templateUrl=memeTemplate){
 
   <Templates allMemes={allMemes} setMemeTemplate={setMemeTemplate}/> 
 
-  <Posts createMemeImage={createMemeImage}/>
+  <Posts createMemeImage={createMemeImage} memesData={memesData} filter="all"/>
   </>
   )
 }
