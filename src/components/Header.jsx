@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { Link } from 'react-router-dom';
 import {
   Navbar,
   NavBody,
@@ -26,7 +26,7 @@ export default function Header(){
         <NavItems items={navItems} />
 
         <div className="relative z-20 flex items-center gap-2">
-          <NavbarButton href="./pages/profile">Profile</NavbarButton>
+          <NavbarButton to='/profile'>Profile</NavbarButton>
         </div>
       </NavBody>
 

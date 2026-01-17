@@ -3,7 +3,11 @@ import Button from './Elements/Button'
 import React from 'react'
 import Inputs from './Inputs'
 
-export default function Builder({imageReady,imgRef,allMemes,setMemeTemplate,downloadMeme,setTextBoxes,textBoxes,GenrateRandomMemeTemplate,inputRefs}){
+import DarkModal from '../components/popup';
+import { ShareMeme } from '../functions';
+
+
+export default function Builder({imageReady,imgRef,allMemes,setMemeTemplate,downloadMeme,setTextBoxes,textBoxes,GenrateRandomMemeTemplate,inputRefs,memedata}){
 
 function addTextBox(
   value="Text Box",
@@ -45,6 +49,9 @@ function addTextBox(
   // addTextBox("ow",{x:284,y:300},"Impact",12)
 }, [imageReady])
 
+  const [showPopup, setShowPopup] = React.useState(false);
+
+
 
   function handleChange(event){
     const value = event.currentTarget.value
@@ -64,8 +71,24 @@ function addTextBox(
       <div className="options">
         <Button text="Add Text" func={()=>addTextBox()}/>
         <Button text="Random Meme" func={GenrateRandomMemeTemplate}/>
-        <Button text="Save" func={()=>downloadMeme(textBoxes)}/>
+        <Button text="Download" func={()=>downloadMeme(textBoxes)}/>
       </div>
+      <div className="options">
+        <Button func={() => setShowPopup(true)} text="Post Meme" />
+        {/* <Button func={() => setShowPopup(true)} text="Save Meme" /> */}
+
+      </div>
+
+      <DarkModal
+        isOpen={showPopup}
+        onClose={() => setShowPopup(false)}
+        onSubmit={(val) => {
+          console.log(val)
+          if (val === '') return;
+          ShareMeme({...memedata, title: val})
+          setShowPopup(false)
+        }}
+      />
       
     </div>
 

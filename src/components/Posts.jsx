@@ -10,11 +10,14 @@ import { db } from "../firebaseConfig";
 
 import "./css/Posts.css";
 
-export default function Posts({ createMemeImage}) {
-  const [memesData, setMemesData] = useState([]);
-  const [memesImgSrc,setMemesImgSrc] = useState([]);
+import MemeCard from './MemeCard';
 
-  async function fetchMemes() {
+export default function Posts({ createMemeImage }) {
+  const [memesData, setMemesData] = useState([]);
+  const [memes, setMemes] = useState([]);
+
+  useEffect(() => {
+    async function fetchMemes() {
       try {
         const q = query(
           collection(db, "test"),
@@ -35,23 +38,15 @@ export default function Posts({ createMemeImage}) {
       }
     }
 
-  useEffect(() => {
-
-    function runthis(){
-      fetchMemes();
-    }
-
-    runthis();
-    
-
-    
+    fetchMemes();
   }, []);
 
   useEffect(() => {
     if (!createMemeImage || memesData.length === 0) return;
 
     async function makeImages() {
-      const memeImagesSrc = []
+      const memes = [];
+
       for (const meme of memesData) {
         if (!meme.textBoxes || !meme.memeTemplate) continue;
 
@@ -61,13 +56,17 @@ export default function Posts({ createMemeImage}) {
         );
 
         const imgSrc = canvas.toDataURL("image/png");
-        memeImagesSrc.push({imgSrc, id: crypto.randomUUID()})
 
+        memes.push({      
+          imgSrc,
+          ...meme
+        });
       }
-      setMemesImgSrc(memeImagesSrc)
+
+      setMemes(memes);
     }
 
-    makeImages(); 
+    makeImages();
   }, [memesData]);
 
   return (
@@ -75,14 +74,11 @@ export default function Posts({ createMemeImage}) {
       <h3>Latest Memes</h3>
 
       <div className="memesGrid">
-        {memesImgSrc.map(memeSrc => (
-          <div className="memeCard" key={memeSrc.id}>
-            <img
-              
-              src={memeSrc.imgSrc}
-              alt="Meme"
-            />
-          </div>
+        {memes.map(meme => (
+          <MemeCard
+            key={meme.id}
+            meme={meme}
+          />
         ))}
       </div>
     </div>

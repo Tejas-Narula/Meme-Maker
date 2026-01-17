@@ -10,8 +10,7 @@ import Header from "../components/Header"
 import Preview from "../components/Preview"
 import Templates from '../components/templates'
 import Posts from '../components/Posts';
-import ShareMeme from '../components/ShareMemeButton';
-
+// import ShareMeme from '../components/ShareMemeButton';
 
 
 export default function Home() {
@@ -23,7 +22,6 @@ export default function Home() {
   const inputRefs = React.useRef({})
   const imgRef = React.useRef(null)
   const [imageReady, setImageReady] = React.useState(false)
-
 
   //Sign In
 
@@ -95,11 +93,11 @@ async function createMemeImage(textBoxes, templateUrl) {
 
   textBoxes.forEach(textBox => {
     
-    // ✅ percent → absolute
+    //  percent → absolute
     const x = textBox.posP.x * canvas.width
     const y = textBox.posP.y * canvas.height
 
-    // ✅ font size scales with image height
+    //  font size scales with image height
     const fontSizePx = textBox.fontSizeP * canvas.height
 
     ctx.textBaseline = "top"
@@ -180,14 +178,12 @@ function downloadMeme(textBoxes,templateUrl=memeTemplate){
   
   <Header/>
   <div className="main">
-    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs} downloadMeme={downloadMeme} setMemeTemplate={setMemeTemplate} allMemes={allMemes} imgRef={imgRef} imageReady={imageReady}/>
+    <Builder textBoxes={textBoxes} setTextBoxes={setTextBoxes} GenrateRandomMemeTemplate={GenrateRandomMemeTemplate} inputRefs={inputRefs} downloadMeme={downloadMeme} setMemeTemplate={setMemeTemplate} allMemes={allMemes} imgRef={imgRef} imageReady={imageReady} memedata={ { memeTemplate,textBoxes} }/>
     <Preview textBoxes={textBoxes} memeTemplate={memeTemplate} mousePos={mousePos} setTextBoxes={setTextBoxes} inputRefs={inputRefs} imgRef={imgRef} imageReady={imageReady} setImageReady={setImageReady}/>
   </div>
 
   <Templates allMemes={allMemes} setMemeTemplate={setMemeTemplate}/> 
 
-  <ShareMeme memedata={ { memeTemplate,textBoxes} }/>
-  
   <Posts createMemeImage={createMemeImage}/>
   </>
   )
