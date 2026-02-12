@@ -1,24 +1,18 @@
 # MeMé Maker
 **Developed By: Tejas Narula**
 
+[![Watch the demo](https://github.com/user-attachments/assets/247bcfbc-60bd-44d6-8676-eee889132f74)](https://github.com/user-attachments/assets/eb167c98-f97a-4c5f-9f40-35da4d1e2675)
+
+
 MeMé Maker is a high-performance web application built with React, designed to streamline the process of digital content creation(Meme Making). The platform provides a friendly interface for generating memes through a library of over 100+ templates, robust text customization, and client-side image rendering.
 
 ---
 
 ## Core Functionalities
 
-### Template Management
-* **Extensive Library:** Access to a curated database of over 100 professional-grade meme templates.
-* **Selection Interface:** A responsive gallery designed for efficient browsing and template retrieval.
-
-### Typography and Customization
-* **Font Selection:** Integration of multiple distinct font families to accommodate various creative requirements.
-* **Dynamic Editing:** Real-time text overlay processing with adjustable parameters for positioning and scale.
-* **Direct Manipulation:** Intuitive controls for modifying content without latent server-side processing.
-
-### Export and Distribution
-* **Local Storage:** Functionality to download and save high-resolution images directly to the user's computer.
-* **Privacy-Centric:** All image processing occurs client-side, ensuring user data and creations remain local to the browser session.
+* Choose from over 100 Meme Templates and create your own meme easily
+* download the meme to share with the world
+* Post the meme directly on the app
 
 ---
 
@@ -50,21 +44,37 @@ MeMé Maker is a high-performance web application built with React, designed to 
     cd meme-maker
     npm install
     ```
+3. Go to the [Firebase Console](https://console.firebase.google.com).
+
+- Create a new project (or use an existing one).
+
+- Enable the required services:
+  - Authentication
+  - Firestore Database
+  - Storage  
+  *(Enable only what your project needs.)*
+
+- Navigate to:
+
+  **Project Settings → General → Your Apps → Web App → Firebase SDK configuration**
+
+- Copy the Firebase configuration values:
+  - `apiKey`
+  - `authDomain`
+  - `projectId`
+  - `storageBucket`
+  - `messagingSenderId`
+  - `appId`
+
+- Open your `.env` file and replace the placeholder values with your Firebase credentials.
+
+#### Example `.env`
+
 3.  **Launch Application**
     ```bash
     npm run dev
     ```
 
----
-
-## Operational Workflow
-
-1.  **Initialization:** Select a template from the library of 100+ options.
-2.  **Configuration:** Input desired text and select the appropriate font family.
-3.  **Rendering:** The application dynamically renders the composition on a canvas element.
-4.  **Finalization:** Execute the download command to export the final asset to the local directory.
-
----
 
 > **Project Status:** This project is actively maintained. For inquiries regarding contributions or feature requests, please contact Me
 
