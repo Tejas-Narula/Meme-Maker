@@ -26,6 +26,7 @@ export default function Header(){
         <NavItems items={navItems} />
 
         <div className="relative z-20 flex items-center gap-2">
+          <NavbarButton to='/memes'>Memes</NavbarButton>
           <NavbarButton to='/profile'>Profile</NavbarButton>
         </div>
       </NavBody>

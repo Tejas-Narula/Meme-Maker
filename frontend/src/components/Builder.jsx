@@ -4,7 +4,7 @@ import React from 'react'
 import Inputs from './Inputs'
 
 import DarkModal from '../components/popup';
-import { ShareMeme } from '../functions';
+import { ShareMeme, createMemeImage } from '../functions';
 
 
 export default function Builder({imageReady,imgRef,allMemes,setMemeTemplate,downloadMeme,setTextBoxes,textBoxes,GenrateRandomMemeTemplate,inputRefs,memedata}){
@@ -50,7 +50,21 @@ function addTextBox(
 }, [imageReady])
 
   const [showPopup, setShowPopup] = React.useState(false);
+  const [previewUrl, setPreviewUrl] = React.useState(null);
 
+  // Generate preview image when popup is opened
+  async function handleOpenPostPopup() {
+    if (memedata.memeTemplate && memedata.textBoxes) {
+      try {
+        const canvas = await createMemeImage(memedata.textBoxes, memedata.memeTemplate);
+        setPreviewUrl(canvas.toDataURL("image/png"));
+      } catch (err) {
+        console.error("Failed to generate preview:", err);
+        setPreviewUrl(null);
+      }
+    }
+    setShowPopup(true);
+  }
 
 
   function handleChange(event){
@@ -74,19 +88,21 @@ function addTextBox(
         <Button text="Download" func={()=>downloadMeme(textBoxes)}/>
       </div>
       <div className="options">
-        <Button func={() => setShowPopup(true)} text="Post Meme" />
+        <Button func={handleOpenPostPopup} text="Post Meme" />
         {/* <Button func={() => setShowPopup(true)} text="Save Meme" /> */}
 
       </div>
 
       <DarkModal
         isOpen={showPopup}
-        onClose={() => setShowPopup(false)}
+        onClose={() => { setShowPopup(false); setPreviewUrl(null); }}
+        previewImageUrl={previewUrl}
         onSubmit={(val) => {
           console.log(val)
           if (val === '') return;
           ShareMeme({...memedata, title: val})
           setShowPopup(false)
+          setPreviewUrl(null)
         }}
       />
       

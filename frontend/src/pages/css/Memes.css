@@ -1,0 +1,130 @@
+.memes-page {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(18, 18, 18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Loading */
+.memes-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: #888;
+  font-size: 0.95rem;
+  cursor: default;
+}
+
+.memes-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Hover hint */
+.memes-hover-hint {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.15s ease;
+}
+
+.memes-hover-hint.left {
+  left: 1.5rem;
+}
+
+.memes-hover-hint.right {
+  right: 1.5rem;
+}
+
+/* Viewer Layout */
+.memes-viewer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image container — fills all available space */
+.memes-image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0.5rem;
+  min-height: 0;
+}
+
+.memes-image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+/* Bottom bar — always at the bottom */
+.memes-bottom-bar {
+  flex-shrink: 0;
+  padding: 0.5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+
+.memes-title-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.memes-title-area h3 {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.memes-counter {
+  color: #666;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.memes-like-area {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.memes-like-count {
+  color: #ccc;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.memes-like-btn {
+  font-size: 1.3rem !important;
+}

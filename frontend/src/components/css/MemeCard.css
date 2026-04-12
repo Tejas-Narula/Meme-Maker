@@ -1,0 +1,194 @@
+.memeCard {
+  cursor: pointer;
+  background-color: rgb(40, 40, 40); /* card background */
+  padding: 0.75rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  flex-direction: column;
+  gap: 0.5rem;
+
+  transition: transform 0.15s ease-in-out;
+}
+
+.memeCard:hover{
+  transform: scale(1.03);
+}
+
+.imgArea{
+  /* background-color: rgba(0, 0, 0, 0.262); */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+}
+
+.memeCard img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  /* border-radius: 6px; */
+}
+
+.info {
+  font-size: 20px;
+}
+
+.info > p{
+  font-size: 8px;
+  color: grey;
+  font-style: italic;
+}
+
+.post-info{
+  color: white;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.likes-container{
+  gap: 0.5rem;
+  display: flex;
+}
+
+.likes-container{
+  color: whitesmoke;
+}
+
+.memeCard > .info > p{
+  /* color: white; */
+  padding-left: 5px;
+}
+
+/* Like button styles */
+.like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: whitesmoke;
+  transition: color 0.2s ease, transform 0.2s ease;
+  padding: 0;
+  line-height: 1;
+}
+
+.like-btn:hover {
+  color: #ff4d6d;
+  transform: scale(1.2);
+}
+
+.like-btn.liked {
+  color: #ff1744;
+  animation: likePopIn 0.35s ease;
+}
+
+.like-btn.liked:hover {
+  color: #ff6b6b;
+}
+
+@keyframes likePopIn {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.4); }
+  70%  { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+/* Meme Lightbox Overlay */
+.meme-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  animation: fadeInOverlay 0.2s ease;
+}
+
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightbox-content img {
+  max-width: 90vw;
+  max-height: 78vh;
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+  animation: zoomIn 0.25s ease;
+}
+
+.lightbox-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.6rem 1.5rem;
+  border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+
+.lightbox-title {
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.lightbox-likes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lightbox-like-count {
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.lightbox-like-btn {
+  font-size: 1.3rem !important;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  z-index: 101;
+}
+
+.lightbox-close-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.85); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DarkModal = ({ isOpen, onClose, onSubmit }) => {
+const DarkModal = ({ isOpen, onClose, onSubmit, previewImageUrl }) => {
   const [inputValue, setInputValue] = useState("");
 
   if (!isOpen) return null;
@@ -24,12 +24,24 @@ const DarkModal = ({ isOpen, onClose, onSubmit }) => {
           ✕
         </button>
 
-        <div className="flex-1 flex flex-col justify-between items-center gap-8">
+        <div className="flex-1 flex flex-col justify-between items-center gap-6 overflow-hidden">
           <h2 className="text-3xl font-bold text-white tracking-tight">
-            Enter Details
+            Post Your Meme
           </h2>
 
-          <div className="w-full max-w-2xl flex flex-col gap-8">
+          {/* Meme Image Preview */}
+          {previewImageUrl && (
+            <div className="flex-1 w-full max-w-2xl flex items-center justify-center overflow-hidden rounded-lg bg-zinc-800/50 border border-zinc-700/50 min-h-0">
+              <img
+                src={previewImageUrl}
+                alt="Meme Preview"
+                className="max-w-full max-h-full object-contain rounded-lg"
+                style={{ maxHeight: '100%' }}
+              />
+            </div>
+          )}
+
+          <div className="w-full max-w-2xl flex flex-col gap-4 flex-shrink-0">
             {/* Label and Input on same line */}
             <div className="flex flex-row items-center gap-4 w-full">
               <label className="text-sm font-medium text-zinc-400 whitespace-nowrap">
@@ -46,7 +58,10 @@ const DarkModal = ({ isOpen, onClose, onSubmit }) => {
             </div>
 
             <button
-              onClick={() => onSubmit(inputValue)}
+              onClick={() => {
+                onSubmit(inputValue);
+                setInputValue("");
+              }}
               className="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg transition-colors shadow-lg shadow-blue-900/20"
             >
               Post Meme
